@@ -38,6 +38,20 @@ class GestionBBDD {
 		$conexion=null;
     }
 
+    public static function editarProducto($codOld, $seccion, $nombre, $fecha, $pais, $precio) {
+        try {
+            $sql="update productos set seccion = :n_seccion, nombrearticulo = :n_nombre, fecha = :n_fecha,paisdeorigen = :n_pais, precio = :n_precio where codigoarticulo = :n_codigo";
+            //$sql = "update productos set seccion = '$seccion', nombrearticulo = '$nombre', fecha = '$fecha', paisdeorigen = '$pais', precio = '$precio' where codigoarticulo = '$codOld';";
+            $conexion=self::realizarConexion();
+		    $resultado=$conexion->prepare($sql);
+            $afectados=$resultado->execute(array(":n_seccion"=>$seccion,":n_nombre"=>$nombre,":n_fecha"=>$fecha,":n_pais"=>$pais,":n_precio"=>$precio,":n_codigo"=>$codOld));
+            $resultado->closeCursor();
+		    $conexion=null;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        
+    }
 }
 
 ?>

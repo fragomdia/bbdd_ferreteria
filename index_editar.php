@@ -1,10 +1,5 @@
 <?php 
 require_once "include/gestionBbdd.php";
-if (isset($_POST['borrar'])) {
-    foreach ($_POST['codigos'] as $cod) {
-        GestionBBDD::eliminarProducto($cod);
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,30 +23,28 @@ if (isset($_POST['borrar'])) {
                 <td>Fecha</td>
                 <td>Origen</td>
                 <td>Precio</td>
-                <td>
-                    <form action='index_checkbox.php' method='post'>
-                        <button type='submit' name='borrar'>Borrar</button>
-                </td>
+                <td></td>
             </tr>
             <?php
                 try {
                     $array_de_productos = GestionBBDD::productos();
                     foreach ($array_de_productos as $pro) {
-                        echo "<tr class='producto2'>
+                        echo "<tr class='producto'>
                         <td>".$pro->getCodigoProducto()."</td>
                         <td>".$pro->getSeccionProducto()."</td>
                         <td>".$pro->getNombreProducto()."</td>
                         <td>".$pro->getFechaProducto()."</td>
                         <td>".$pro->getPaisProducto()."</td>
                         <td>".$pro->getPrecioProducto()."</td>
-                        <td><input type='checkbox' name='codigos[]' value='".$pro->getCodigoProducto()."'></td>
-                        </tr>";
+                        <td><form action='editar.php' method='post'>
+                        <input type='hidden' name='codigo' value='".$pro->getCodigoProducto()."'/>
+                        <button type='submit' name='editar'>Editar</button>
+                        </form></td></tr>";
                     }
                 } catch (Exception $e) {
                     echo  "<br> ERROR" . $e->getMessage();
                 }
             ?>
-            </form>
         </table>
     </div>
 </body>
