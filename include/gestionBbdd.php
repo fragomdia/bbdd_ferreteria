@@ -52,6 +52,19 @@ class GestionBBDD {
         }
         
     }
+
+    public static function registroProducto($codigo, $seccion, $nombre, $fecha, $pais, $precio) {
+        try {
+            $sql="insert into productos values (:n_codigo, :n_seccion, :n_nombre, :n_fecha, :n_pais, :n_precio);";
+            $conexion=self::realizarConexion();
+		    $resultado=$conexion->prepare($sql);
+            $afectados=$resultado->execute(array(":n_codigo"=>$codigo,":n_seccion"=>$seccion,":n_nombre"=>$nombre,":n_fecha"=>$fecha,":n_pais"=>$pais,":n_precio"=>$precio));
+            $resultado->closeCursor();
+		    $conexion=null;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
 
 ?>

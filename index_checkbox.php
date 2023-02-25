@@ -1,6 +1,6 @@
 <?php 
 require_once "include/gestionBbdd.php";
-if (isset($_POST['borrar'])) {
+if (isset($_POST['borrar']) && isset($_POST['codigos'])) {
     foreach ($_POST['codigos'] as $cod) {
         GestionBBDD::eliminarProducto($cod);
     }

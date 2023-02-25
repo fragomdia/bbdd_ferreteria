@@ -1,5 +1,14 @@
 <?php 
 require_once "include/gestionBbdd.php";
+if (isset($_POST['insertar'])) {
+    $codigo = $_POST['cod'];
+    $seccion = $_POST['seccion'];
+    $nombre = $_POST['nombre'];
+    $fecha = $_POST['fecha'];
+    $pais = $_POST['pais'];
+    $precio = $_POST['precio'];
+    GestionBBDD::registroProducto($codigo, $seccion, $nombre, $fecha, $pais, $precio);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,10 +55,10 @@ require_once "include/gestionBbdd.php";
                     <td><input type="text" name="cod"></td>
                     <td><input type="text" name="seccion"></td>
                     <td><input type="text" name="nombre"></td>
-                    <td><input type="text" name="fecha"></td>
+                    <td><input type="date" name="fecha"></td>
                     <td><input type="text" name="pais"></td>
                     <td><input type="text" name="precio"></td>
-                    <td><button type="submit">Insertar</button></td>
+                    <td><button type="submit" name="insertar">Insertar</button></td>
                 </tr>
             </form>
         </table>
